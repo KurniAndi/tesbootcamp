@@ -45,8 +45,11 @@ $email = $_SESSION["email"];
             $content = input($_POST["content"]);
             $image = input($_POST["image"]);
             $created_at = input($_POST["created_at"]);
-            $id_author = input($_POST["id_author"]);
-            $id_category = input($_POST["id_category"]);
+            $id_author = input($_SESSION["id"]);
+            $id_category = input($_SESSION["id"]);
+
+
+
 
 
             $sql = "insert into article (title,content,image,created_at,id_author,id_category) values
@@ -62,11 +65,12 @@ $email = $_SESSION["email"];
                 echo "<div class='alert alert-danger'> Data Gagal disimpan.</div>";
             }
         }
+
         ?>
         <h2>Form Pengisian Data Article</h2>
 
 
-        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post">
+        <form action="<?php echo $_SERVER["PHP_SELF"]; ?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Title:</label>
                 <input type="text" name="title" class="form-control" required />
@@ -79,30 +83,20 @@ $email = $_SESSION["email"];
             </div>
             <div class="form-group">
                 <label>Image:</label>
-                <input type="file" name="image" class="form-control" required />
+                <input type="text" name="image" class="form-control" required />
 
             </div>
             <div class="form-group">
                 <label>Created:</label>
-                <input type="text" name="created_at" class="form-control" required />
+                <input type="date" name="created_at" class="form-control" required />
             </div>
             <div class="form-group">
-                <label>User:</label>
-                <input type="text" name="id_author" class="form-control" required />
-            </div>
-            <div class="form-group">
-                <select class="form-select" aria-label="Default select example" name="id_category">
-                    <option selected>Category</option>
-                    <option value="1">1</option>
-                    <option value="2">2</option>
-                    <option value="3">3</option>
-                    <option value="4">4</option>
-                    <option value="5">5</option>
-                </select>
+                <input type="hidden" name="id_author" class="form-control" required />
+                <input type="hidden" name="id_category" class="form-control" required />
             </div>
 
             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-            <a href="logout.php" class="btn btn-warning" role="button">Kembali</a>
+            <a href="index.php" class="btn btn-warning" role="button">Kembali</a>
         </form>
     </div>
 </body>

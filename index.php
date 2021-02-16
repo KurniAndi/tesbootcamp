@@ -58,15 +58,16 @@ $email = $_SESSION["email"];
                     <th>Content</th>
                     <th>Image</th>
                     <th>Created</th>
-
+                    <th>User</th>
                     <th>Category</th>
                     <th colspan='2'>Aksi</th>
                 </tr>
             </thead>
             <?php
             include "koneksi.php";
-            $sql = "select * from article order by id desc";
-
+            $sql = "select * from article where id_author = $id ";
+            $sql_user = "select * from article join author on author.id = article.id_author";
+            $sql_category = "select * from category join author on author.id = category.id";
             $hasil = mysqli_query($kon, $sql);
             $no = 0;
             while ($data = mysqli_fetch_array($hasil)) {
@@ -80,7 +81,7 @@ $email = $_SESSION["email"];
                         <td><?php echo $data["content"];   ?></td>
                         <td><?php echo $data["image"];   ?></td>
                         <td><?php echo $data["created_at"];   ?></td>
-
+                        <td><?php echo $data["id_author"];   ?></td>
                         <td><?php echo $data["id_category"];   ?></td>
                         <td>
                             <a href="update.php?id=<?php echo htmlspecialchars($data['id']); ?>" class="btn btn-warning" role="button">Update</a>
@@ -92,7 +93,8 @@ $email = $_SESSION["email"];
             }
             ?>
         </table>
-        <a href="create.php" class="btn btn-primary" role="button">Tambah Data</a>
+        <a href="create.php" class="btn btn-primary" role="button">Tambah Article</a>
+        <a href="create_category.php" class="btn btn-primary" role="button">Tambah Category</a>
         <a href="logout.php" class="btn btn-warning" role="button">Logout</a>
 
     </div>

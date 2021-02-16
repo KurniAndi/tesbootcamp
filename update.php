@@ -8,7 +8,7 @@ if (!isset($_SESSION["name"])) {
     exit;
 }
 
-$id_pengguna = $_SESSION["id"];
+$id = $_SESSION["id"];
 $username = $_SESSION["name"];
 $image = $_SESSION["image"];
 $email = $_SESSION["email"];
@@ -56,8 +56,8 @@ $email = $_SESSION["email"];
             $content = input($_POST["content"]);
             $image = input($_POST["image"]);
             $created_at = input($_POST["created_at"]);
-            $id_user = input($_POST["id_author"]);
-            $id_category = input($_POST["id_category"]);
+            $id_author = input($_SESSION["id"]);
+            $id_category = input($_SESSION["id"]);
 
 
             $sql = "update article set
@@ -84,7 +84,7 @@ $email = $_SESSION["email"];
         <h2>Update Data</h2>
 
 
-        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post">
+        <form action="<?php echo htmlspecialchars($_SERVER["PHP_SELF"]); ?>" method="post" enctype="multipart/form-data">
             <div class="form-group">
                 <label>Title:</label>
                 <input type="text" name="title" class="form-control" value="<?php echo $data['title']; ?>" required />
@@ -97,21 +97,15 @@ $email = $_SESSION["email"];
             </div>
             <div class="form-group">
                 <label>Image:</label>
-                <input type="text" name="image" class="form-control" value="<?php echo $data['image']; ?>" required />
+                <input type="file" name="image" class="form-control" value="<?php echo $data['image']; ?>" required />
 
             </div>
             <div class="form-group">
                 <label>Created:</label>
                 <input type="text" name="created_at" class="form-control" value="<?php echo $data['created_at']; ?>" required />
             </div>
-            <div class="form-group">
-                <label>User:</label>
-                <input type="text" name="id_author" class="form-control" value="<?php echo $data['id_user']; ?>" required />
-            </div>
-            <div class="form-group">
-                <label>Category</label>
-                <input type="text" name="id_category" class="form-control" value="<?php echo $data['id_category']; ?>" required />
-            </div>
+            <input type="hidden" name="id_author" value="<?php echo $date['id_author']; ?>" />
+            <input type="hidden" name="id_category" value="<?php echo $date['id_category']; ?>" />
 
             <input type="hidden" name="id" value="<?php echo $data['id']; ?>" />
 
