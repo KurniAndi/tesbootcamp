@@ -36,6 +36,8 @@
             $sql = "insert into author (id,name,email,password,image) values
 		('$id','$name','$email','$password','$image')";
 
+            $sql .= "insert into article (id_author) values ($id_author)";
+
 
             $hasil = mysqli_query($kon, $sql);
 
